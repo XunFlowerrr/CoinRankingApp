@@ -2,6 +2,7 @@ package com.example.coinrankingapp.presentation
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -34,25 +34,26 @@ import com.example.coinrankingapp.domain.Coin
 class CoinRankingViewer(var coins: LazyPagingItems<Coin>) {
     @Composable
     fun Build() {
+        // Get the current context
         val context = LocalContext.current
 
+        // Display a toast message if the loading of coins fails
         LaunchedEffect(key1 = coins.loadState)
         {
             if (coins.loadState.refresh is LoadState.Error) {
                 Toast.makeText(
                     context,
                     "Error: " + (coins.loadState.refresh as LoadState.Error).error.message,
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show()
             }
         }
 
-
         Column(modifier = Modifier.fillMaxSize())
         {
-            Text(
+            androidx.compose.material3.Text(
                 text = "BTC",
-                color = Color(0xFF000000),
+                color = isSystemInDarkTheme().let { if (it) Color(0xFFDDDDDD) else Color(0xFF000000) },
                 fontFamily = FontFamily(Font(R.font.robotobold)),
                 fontSize = 20.sp,
                 modifier = Modifier
@@ -61,12 +62,16 @@ class CoinRankingViewer(var coins: LazyPagingItems<Coin>) {
                     .fillMaxWidth()
             )
 
+
+            // Create a lazy column for the list of coins
             LazyColumn {
                 items(
                     count = coins.itemCount,
                     key = { index -> coins[index]?.rank?.toString() ?: "$index" }
                 ) { index ->
+                    // Get the coin at the current index
                     val coin = coins[index]
+                    // If the coin is not null, display it using the CoinComponent
                     if (coin != null) {
                         CoinComponent(coin, coins).unique(index, 5).Build()
                     }
@@ -74,14 +79,15 @@ class CoinRankingViewer(var coins: LazyPagingItems<Coin>) {
                         modifier = Modifier
                             .height(1.dp)
                             .fillMaxWidth()
-                            .background(Color(0xFFEEEEEE))
+                            .background(isSystemInDarkTheme().let {
+                                if (it) Color(0xFF222222) else Color(0xFFEEEEEE)
+                            })
                     )
                 }
-            }
 
+            }
         }
 
     }
-
 
 }

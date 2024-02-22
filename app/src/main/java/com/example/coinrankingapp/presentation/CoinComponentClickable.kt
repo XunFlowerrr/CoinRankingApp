@@ -3,6 +3,7 @@ package com.example.coinrankingapp.presentation
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,32 +32,34 @@ import com.example.coinrankingapp.R
 import com.example.coinrankingapp.domain.Coin
 
 /**
- * CoinComponentClickable is a class that is used to build a CoinComponentClickable object.
- * @param context is a Context object.
- * @param coin is a Coin object.
- * @param intent is an Intent object.
- * @return a CoinComponentClickable object.
- * @see Coin
+ * This class represents a clickable component for a Coin in the application.
+ * It is responsible for building the UI representation of a Coin and handling click events.
+ *
+ * @property context The context in which this component is being used.
+ * @property coin The Coin object that this component represents.
+ * @property intent The intent that will be used for navigation when the component is clicked.
  */
 class CoinComponentClickable(
     private val context: Context,
     private val coin: Coin,
     private val intent: Intent
 ) {
-
     /**
-     * Build is a function that is used to build the CoinComponentClickable object.
-     * @return a CoinComponentClickable object.
+     * This function builds the UI for the Coin component and handles click events.
+     * It creates a row layout with a text view for the coin's name and URL, and an image view for the coin's icon.
+     * When the component is clicked, it logs the coin's URL and starts an activity using the provided intent.
      */
     @Composable
     fun Build() {
+        val showImageShimmer = remember { mutableStateOf(true) }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    Log.d("CoinComponentClickable", "Build: " + coin.coinrankingUrl)
+                    Log.d("CoinComponentClickable", "Build: ${coin.coinrankingUrl}")
                     context.startActivity(intent)
-                },
+                }
+                .background(shimmerBrush(showImageShimmer.value, targetValue = 1300f)),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -65,25 +70,29 @@ class CoinComponentClickable(
                     .weight(1f)
             ) {
 
-                Text(
-                    text = coin.name!!,
-                    fontSize = 16.sp,
-                    textAlign = TextAlign.Right,
-                    fontFamily = FontFamily(Font(R.font.robotobold))
-                )
-
-                coin.coinrankingUrl?.let {
+                if (!showImageShimmer.value) {
                     Text(
-                        text = it,
-                        fontSize = 14.sp,
+                        text = coin.name!!,
+                        fontSize = 16.sp,
                         textAlign = TextAlign.Right,
-                        lineHeight = 15.sp,
-                        color = Color(0xFF999999),
-                        fontFamily = FontFamily(Font(R.font.robotoregular)),
-                        modifier = Modifier.padding(top = 8.dp)
+                        fontFamily = FontFamily(Font(R.font.robotobold))
                     )
+
+                    coin.coinrankingUrl?.let {
+                        Text(
+                            text = it,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Right,
+                            lineHeight = 15.sp,
+                            color = Color(0xFF999999),
+                            fontFamily = FontFamily(Font(R.font.robotoregular)),
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
                 }
             }
+
+            // Load and display the coin's icon from a URL
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current).data(coin.iconUrl)
                     .decoderFactory(SvgDecoder.Factory()).build(),
@@ -91,8 +100,11 @@ class CoinComponentClickable(
                 modifier = Modifier
                     .padding(16.dp)
                     .width(50.dp)
-                    .height(50.dp)
-            )
+                    .height(50.dp),
+                onSuccess = {
+                    showImageShimmer.value = false
+                })
         }
     }
 }
+

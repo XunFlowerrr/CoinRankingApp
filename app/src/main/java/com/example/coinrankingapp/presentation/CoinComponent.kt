@@ -10,11 +10,11 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.coinrankingapp.domain.Coin
 
 /**
- * CoinComponent is a class that is used to build a CoinComponent object.
- * @param coin is a Coin object.
- * @param coinList is a LazyPagingItems<Coin> object.
- * @return a CoinComponent object.
- * @see Coin
+ * This class represents a component for a Coin in the application.
+ * It is responsible for building the UI representation of a Coin based on its position in the list.
+ *
+ * @property coin The Coin object that this component represents.
+ * @property coinList The list of Coin objects.
  */
 class CoinComponent(private var coin: Coin, private var coinList: LazyPagingItems<Coin>) {
 
@@ -22,10 +22,12 @@ class CoinComponent(private var coin: Coin, private var coinList: LazyPagingItem
     private var interval: Int = 0
 
     /**
-     * unique is a function that is used to set the index and interval of the CoinComponent object.
-     * @param index is an Int.
-     * @param interval is an Int.
-     * @return a CoinComponent object.
+     * This function sets the index and interval for the Coin component.
+     * It is used to determine whether to display a clickable or default component.
+     *
+     * @param index The position of the Coin in the list.
+     * @param interval The interval at which to display a clickable component.
+     * @return The CoinComponent object.
      */
     fun unique(index: Int, interval: Int): CoinComponent {
         this.index = index
@@ -34,8 +36,8 @@ class CoinComponent(private var coin: Coin, private var coinList: LazyPagingItem
     }
 
     /**
-     * Build is a function that is used to build the CoinComponent object.
-     * @return a CoinComponent object.
+     * This function builds the UI for the Coin component.
+     * It creates either a clickable or default component based on the Coin's position in the list.
      */
     @Composable
     fun Build() {
@@ -43,6 +45,8 @@ class CoinComponent(private var coin: Coin, private var coinList: LazyPagingItem
         val context: Context = LocalContext.current
         val intent: Intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(url)) }
 
+        // If the Coin's position in the list is a multiple of the interval (and not the first position),
+        // create a clickable component. Otherwise, create a default component.
         if ((index + 1) % interval == 0 && index != 0) {
             CoinComponentClickable(context, coin, intent).Build()
 
@@ -50,5 +54,4 @@ class CoinComponent(private var coin: Coin, private var coinList: LazyPagingItem
             CoinComponentDefault(context, coin, intent).Build()
         }
     }
-
 }
