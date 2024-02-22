@@ -35,3 +35,4 @@ data class Data(
     val stats: Stats? = null,
     val coins: List<CoinsDto?>? = null
 )
+

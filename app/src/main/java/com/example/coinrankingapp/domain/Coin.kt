@@ -1,4 +1,8 @@
 package com.example.coinrankingapp.domain
+/**
+ * This class represents a Coin object.
+ * It is used to store data from the API into the local database.
+ */
 
 data class Coin(
     val symbol: String? = null,

@@ -16,3 +16,4 @@ data class CoinsDto(
     val rank: Int? = null,
     val iconUrl: String? = null
 )
+

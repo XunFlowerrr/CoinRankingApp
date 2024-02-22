@@ -1,5 +1,4 @@
 package com.example.coinrankingapp.presentation
-
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.background
@@ -25,6 +24,7 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.coinrankingapp.R
 import com.example.coinrankingapp.domain.Coin
+
 
 /**
  * This class represents a default component for a Coin in the application.
@@ -94,4 +94,3 @@ class CoinComponentDefault(
         }
     }
 }
-

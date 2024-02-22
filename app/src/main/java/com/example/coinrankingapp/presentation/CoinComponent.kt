@@ -1,5 +1,4 @@
 package com.example.coinrankingapp.presentation
-
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.paging.compose.LazyPagingItems
 import com.example.coinrankingapp.domain.Coin
+
 
 /**
  * This class represents a component for a Coin in the application.

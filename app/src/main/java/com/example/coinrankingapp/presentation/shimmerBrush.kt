@@ -1,5 +1,4 @@
 package com.example.coinrankingapp.presentation
-
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

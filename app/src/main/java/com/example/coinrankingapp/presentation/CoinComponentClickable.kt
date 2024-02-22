@@ -1,5 +1,4 @@
 package com.example.coinrankingapp.presentation
-
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -107,4 +106,3 @@ class CoinComponentClickable(
         }
     }
 }
-

@@ -5,7 +5,11 @@ import com.example.coinrankingapp.data.remote.CoinsDto
 import com.example.coinrankingapp.domain.Coin
 
 /**
- * Extension functions for converting between data transfer objects and domain models.
+ * This function converts a CoinsDto object to a CoinEntity object.
+ * It is used when storing data from the API into the local database.
+ *
+ * @receiver The CoinsDto object to be converted.
+ * @return The converted CoinEntity object.
  */
 fun CoinsDto.toCoinEntity(): CoinEntity {
     return CoinEntity(
@@ -26,7 +30,11 @@ fun CoinsDto.toCoinEntity(): CoinEntity {
 }
 
 /**
- * Extension functions for converting between data transfer objects and domain models.
+ * This function converts a CoinEntity object to a Coin object.
+ * It is used when retrieving data from the local database to be used in the application.
+ *
+ * @receiver The CoinEntity object to be converted.
+ * @return Coin The converted Coin object.
  */
 fun CoinEntity.toCoin(): Coin {
     return Coin(
@@ -37,7 +45,6 @@ fun CoinEntity.toCoin(): Coin {
         btcPrice = btcPrice,
         listedAt = listedAt,
         uuid = uuid,
-//        sparkline = sparkline,
         jsonMember24hVolume = jsonMember24hVolume,
         coinrankingUrl = coinrankingUrl,
         price = price,

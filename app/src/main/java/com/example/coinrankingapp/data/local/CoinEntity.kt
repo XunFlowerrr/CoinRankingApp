@@ -1,8 +1,11 @@
 package com.example.coinrankingapp.data.local
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * This class represents a CoinEntity object.
+ * It is used to store data from the API into the local database.
+ */
 @Entity
 data class CoinEntity(
     val symbol: String? = null,
