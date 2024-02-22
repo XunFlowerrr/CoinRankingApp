@@ -2,10 +2,13 @@
 
 # CoinRankingApp
 
-CoinRankingApp is an Android application that allows users to track the latest cryptocurrency prices and top performing cryptocurrencies.
+CoinRankingApp is an Android application that allows users to track the latest cryptocurrency prices and top performing cryptocurrencies. The app uses the CoinRanking API to fetch cryptocurrency data and displays it in a user-friendly interface.
 
-<img src="readme_resource/light_trim.png" alt="alt text" width="200" height="400">
-<img src="readme_resource/dark_trim.png" alt="alt text" width="200" height="400">
+<div style="display: flex;">
+    <img src="readme_resource/light_trim.png" alt="alt text" width="200" height="400">
+    <div style="width: 20px;"></div>
+    <img src="readme_resource/dark_trim.png" alt="alt text" width="200" height="400">
+</div>
 
 ## Features
 
@@ -14,7 +17,7 @@ CoinRankingApp is an Android application that allows users to track the latest c
 
 ## Installation
 
-<!-- 1. Download apk from [release page]() -->
+1. Download apk from [release page](https://github.com/XunFlowerrr/CoinRankingApp/releases/tag/1.0.0)
 
 2. Install the apk on your Android device
 3. Follow the on-screen instructions to install the app.
